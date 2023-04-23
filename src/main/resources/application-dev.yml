@@ -1,0 +1,35 @@
+server:
+  port: 8099
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/warehouse_v3
+    password: 1111111111
+    username: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+    groups-order: asc
+    operations-sorter: alpha
+    try-it-out-enabled: true
+    tags-sorter: alpha
+    display-request-duration: true
+  api-docs:
+    path: /api/doc
+api:
+  info:
+    title: Shaxsiy Biznesga Tegishli Tijoriy Ma'lumotlar
+    description: Biznesga Tegishli Ombor va Market proyektidagi API lar
+    version: 1.2
+    contact-name: Ilombek Ubaydullayev
+    contact-email: devuzcoder@gmail.com
+    contact-url: #######
+    license-name: ######
+    license-url: ######
