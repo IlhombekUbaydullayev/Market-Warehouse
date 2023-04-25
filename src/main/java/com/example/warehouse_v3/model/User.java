@@ -24,9 +24,11 @@ import java.util.List;
 public class User extends AuditEntity implements UserDetails {
     private String userName;
     private String password;
+
     @Enumerated(EnumType.STRING)
     private Role role = Role.ROLE_USER;
-
+    private int emailCode = 0;
+    private boolean isEnable = true;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
@@ -59,6 +61,6 @@ public class User extends AuditEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.isEnable();
     }
 }

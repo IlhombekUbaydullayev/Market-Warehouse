@@ -1,6 +1,7 @@
 package com.example.warehouse_v3.service;
 
 import com.example.warehouse_v3.dto.GenericDto;
+import jakarta.mail.MessagingException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,7 +12,7 @@ public interface GenericService<
         CD extends BaseDto,
         I extends Serializable> {
 
-    D create(CD createDto) ;
+    D create(CD createDto) throws MessagingException;
 
     D update(UD updateDto);
 

@@ -7,7 +7,6 @@ import com.example.warehouse_v3.service.WarehouseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WarehouseController {
     private final WarehouseService service;
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/getAll")
     public ResponseEntity<List<WarehouseResponse>> getAll() {
         List<WarehouseResponse> all = service.getAll();
