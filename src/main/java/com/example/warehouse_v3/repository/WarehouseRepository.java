@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface WarehouseRepository extends BaseRepository<Warehouse>{
     List<Warehouse> findAllByDeletedFalse();
     Optional<Warehouse> findByIdAndDeletedFalse(Long id);
+    List<Warehouse> findAllByUserIdAndDeletedFalse(Long id);
+
 }

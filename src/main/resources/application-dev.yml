@@ -4,8 +4,12 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: devuzcoder@gmail.com
-    password: qrtnjxippiwqahfm
+    username: ilhombekubaydullaev@gmail.com
+    password: airgsdszybeyyynj
+    hikari:
+      data-source-properties:
+        socketFactory: com.google.cloud.sql_postgres.SocketFactory
+        cloudSqlInstance: fir-crud-main-6f05c:us-central1:card-db
     properties:
       mail:
         debug: true

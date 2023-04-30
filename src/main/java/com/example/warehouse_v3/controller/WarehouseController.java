@@ -4,28 +4,41 @@ import com.example.warehouse_v3.dto.WarehouseCreate;
 import com.example.warehouse_v3.dto.WarehouseResponse;
 import com.example.warehouse_v3.dto.WarehouseUpdate;
 import com.example.warehouse_v3.service.WarehouseService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/warehouse")
 @RequiredArgsConstructor
 public class WarehouseController {
     private final WarehouseService service;
-//    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @GetMapping("/getAll")
-    public ResponseEntity<List<WarehouseResponse>> getAll() {
-        List<WarehouseResponse> all = service.getAll();
+//    @PreAuthorize("hasAnyRole('ROLE_USER')")
+//    @GetMapping("/getAll")
+//    public ResponseEntity<WarehouseResponse> getAll() {
+//        WarehouseResponse all = service.getByUserId();
+//        return new ResponseEntity<>(all, HttpStatus.OK);
+//    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @GetMapping("/getAllByUserId")
+    public ResponseEntity<List<WarehouseResponse>> getAllByUserId() {
+        List<WarehouseResponse> all = service.getByUserId();
         return new ResponseEntity<>(all, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody WarehouseCreate create) {
-        WarehouseResponse genericDto = service.create(create);
+    public ResponseEntity<?> create(@RequestBody WarehouseCreate create,HttpServletRequest request) {
+        WarehouseResponse genericDto = service.create(create,request);
         return new ResponseEntity<>(genericDto,HttpStatus.CREATED);
     }
 

@@ -12,7 +12,6 @@ import lombok.*;
 @AllArgsConstructor
 public class Address extends AuditEntity {
     private String address_name;
-    @Column(name = "number")
     private int number;
     @Enumerated(EnumType.STRING)
     private Countrys country;

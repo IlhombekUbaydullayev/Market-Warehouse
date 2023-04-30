@@ -13,7 +13,6 @@ public interface GenericService<
         I extends Serializable> {
 
     D create(CD createDto) throws MessagingException;
-
     D update(UD updateDto);
 
     I delete(I id) ;
@@ -21,6 +20,5 @@ public interface GenericService<
     D get(I id) ;
 
     List<D> getAll();
-
 
 }

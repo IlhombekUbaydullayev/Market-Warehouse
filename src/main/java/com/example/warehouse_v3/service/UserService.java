@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -122,4 +123,7 @@ public class UserService extends AbstractService<UserRepository> implements Gene
         return null;
     }
 
+    public Optional<User> getByUserName(String userName) {
+        return repository.findByUserNameAndDeletedFalse(userName);
+    }
 }

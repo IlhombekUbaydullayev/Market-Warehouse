@@ -19,17 +19,17 @@ import java.util.Optional;
 public class AddressService extends AbstractService<AddressWarehouseRepository> implements GenericService<
         AddressResponse, AddressUpdate,AddressCreate,Long> {
 
-    private final AddressWarehouseMapper mapper;
+    private final AddressWarehouseMapper addressWarehouseMapper;
 
-    protected AddressService(AddressWarehouseRepository repository, AddressWarehouseMapper mapper) {
+    protected AddressService(AddressWarehouseRepository repository, AddressWarehouseMapper addressWarehouseMapper) {
         super(repository);
-        this.mapper = mapper;
+        this.addressWarehouseMapper = addressWarehouseMapper;
     }
 
     @Override
     public AddressResponse create(AddressCreate createDto) {
         log.info(createDto.toString());
-//        Address save = repository.save(mapper.fromCreateDto(createDto));
+//        Address save = repository.save(addressWarehouseMapper.fromCreateDto(createDto));
         return new AddressResponse();
     }
 
@@ -43,9 +43,10 @@ public class AddressService extends AbstractService<AddressWarehouseRepository> 
         Optional<Address> byIdAndDeletedFalse = repository.findByIdAndDeletedFalse(updateDto.id);
         if (byIdAndDeletedFalse.isPresent()) {
             Address address = byIdAndDeletedFalse.get();
-            mapper.fromUpdateDto(updateDto,byIdAndDeletedFalse.get());
+            if (updateDto.number == 0) updateDto.number = address.getNumber();
+            addressWarehouseMapper.fromUpdateDto(updateDto,byIdAndDeletedFalse.get());
             repository.save(address);
-            return mapper.toDto(address);
+            return addressWarehouseMapper.toDto(address);
         } else throw new ItemNotFoundException(ApiMessages.ADDRESS_NOT_FOUND + updateDto.id);
     }
 
@@ -65,12 +66,12 @@ public class AddressService extends AbstractService<AddressWarehouseRepository> 
         Optional<Address> byIdAndDeletedFalse = repository.findByIdAndDeletedFalse(id);
         if (byIdAndDeletedFalse.isPresent()) {
             Address address = byIdAndDeletedFalse.get();
-            return mapper.toDto(address);
+            return addressWarehouseMapper.toDto(address);
         }else throw new ItemNotFoundException(ApiMessages.ADDRESS_NOT_FOUND + id);
     }
 
     @Override
     public List<AddressResponse> getAll() {
-        return mapper.toDto(repository.findAllByDeletedFalse());
+        return addressWarehouseMapper.toDto(repository.findAllByDeletedFalse());
     }
 }

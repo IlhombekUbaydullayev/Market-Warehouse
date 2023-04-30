@@ -22,7 +22,7 @@ public class AddressWarehouseController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> create(@RequestBody AddressUpdate update) {
+    public ResponseEntity<?> update(@RequestBody AddressUpdate update) {
         AddressResponse update1 = service.update(update);
         return new ResponseEntity<>(update1,HttpStatus.OK);
     }
